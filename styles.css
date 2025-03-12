@@ -1,36 +1,53 @@
 body {
     margin: 0;
-    background: white !important;
+    background: rgb(250, 249, 249) !important;
 }
 
 .page {
-    width: 210mm; /* Exact A4 width */
-    height: 297mm; /* Exact A4 height */
+    width: 210mm;
+    height: 297mm;
     margin: 0 auto;
     padding: 20px;
-    background-image: url('./media/Qarat-Charity.jpg');
+    background: rgb(230, 230, 230);
+    background-image: url('./media/flag.png');
     position: relative;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
 }
 
 .container {
-    margin-bottom: 30px;
     padding: 25px;
     border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    background: white;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.938);
+
+    flex: 1;
+    min-height: 0; /* Allows shrinking */
+    overflow: hidden; /* Contains content */
+
+    display: flex;
+    flex-direction: column;
+    position: relative;
 }
 
-.container:last-child {
-    margin-bottom: 0;
+/* Content Wrapper */
+.content-wrapper {
+    flex: 1;
+    overflow-y: auto;
 }
+
+/* If using multiple containers, remove margin from last one */
+/* .container:last-child {
+    margin-bottom: 0;
+} */
 
 /* Header Title Styling */
 .header-title {
     text-align: center;
     margin-bottom: 1rem;
     padding-bottom: 1rem;
-    /* border-bottom: 2px solid #3498db; */
+    /* border-bottom: 1px solid #6b2037; */
 }
 
 .header-title h1 {
@@ -51,7 +68,7 @@ body {
 .header-row {
     display: flex;
     gap: 1.5rem;
-    margin-bottom: 1.2rem;
+    margin-bottom: 1.5rem;
 }
 
 .header-item {
@@ -95,6 +112,7 @@ select, input[type="text"], input[type="number"] {
 
 /* Grade Table */
 .grade-table {
+    margin-top:0.5rem;
     width: 100%;
     border-collapse: collapse;
     /* margin: 2rem 0; */
@@ -111,7 +129,7 @@ select, input[type="text"], input[type="number"] {
 }
 
 .grade-table th {
-    background-color: #3498db;
+    background-color: #6b2037;
     color: white;
     font-weight: 600;
     padding: 0.8rem; /* Keep padding for headers */
@@ -150,7 +168,7 @@ select, input[type="text"], input[type="number"] {
     margin: 0 auto;
     opacity: 0;
     cursor: pointer;
-    color: #e74c3c;
+    color: #a81100;
     background: none;
     border: none;
     padding: 0 8px;
@@ -195,26 +213,27 @@ select, input[type="text"], input[type="number"] {
 
 /* Signature Section */
 .signature-container {
-    margin-top: 2rem;
     width: 265px;
+    margin: auto 0 1rem 0;
+    padding-top: 2rem;
     position: relative;
 }
 
 .signature-upload {
     display: block;
     margin-bottom: 1rem;
-    color: #3498db;
+    color: #6b2037;
     cursor: pointer;
     transition: color 0.3s ease;
     padding: 8px 12px;
-    border: 1px solid #3498db;
+    border: 1px solid #6b2037;
     border-radius: 4px;
     text-align: center;
 }
 
 .signature-upload:hover {
     color: #fff;
-    background-color: #3498db;
+    background-color: #6b2037;
 }
 
 #signaturePreview {
@@ -250,7 +269,7 @@ select, input[type="text"], input[type="number"] {
     left: 50%;
     transform: translateX(-50%);
     padding: 12px 24px;
-    background-color: #3498db;
+    background-color: #6b2037;
     color: white;
     border: none;
     border-radius: 25px;
@@ -262,7 +281,7 @@ select, input[type="text"], input[type="number"] {
 }
 
 .download-btn:hover {
-    background-color: #2980b9;
+    background-color: #501225;
     transform: translateX(-50%) scale(1.05);
 }
 
