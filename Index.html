@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Student Progress Record</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    
+    <body>
+        <div class="page">
+            <div class="container">
+                <!-- Header Titles -->
+                <div class="header-title">
+                    <h1>Student Progress Record</h1>
+                    <h4>Academic Year - 2024</h4>
+                </div>
+                <!-- Header Fields -->
+                <div class="header-row">
+                    <div class="header-item">
+                        <label>Name</label>
+                        <div class="input-group">
+                            <input type="text" placeholder="Enter name">
+                        </div>
+                    </div>
+                    <div class="header-item">
+                        <label>Code</label>
+                        <div class="input-group">
+                            <input type="text" placeholder="Enter code">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="header-row">
+                    <div class="header-item">
+                        <label>Class</label>
+                        <div class="select-input-group">
+                            <select id="classSelector" onchange="updateTable()">
+                                <option value="">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="header-item">
+                        <label>Semester</label>
+                        <div class="input-group">
+                            <input type="text" placeholder="Current semester">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="header-row">
+                    <div class="header-item">
+                        <label>Institution</label>
+                        <div class="input-group">
+                            <input type="text" placeholder="Enter institution name">
+                        </div>
+                    </div>
+                    <div class="header-item">
+                        <label>Section</label>
+                        <div class="input-group">
+                            <input type="text" placeholder="Enter section">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <!-- Grade Table -->
+                <table id="gradeTable" class="grade-table">
+                    <thead>
+                        <tr>
+                            <th>Subject</th>
+                            <th>Obtained Number (%)</th>
+                            <th>Grade</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- Rows will be generated dynamically -->
+                    </tbody>
+                </table>
+
+                <div class="action-row">
+                    <div class="button-group">
+                        <button class="btn btn-primary" onclick="addRow()">Add Row</button>
+                    </div>
+                    
+                    <div class="gpa-display">
+                        GPA: <span id="gpa">0.00</span>
+                    </div>
+                </div>
+
+                <div class="signature-container">
+                    <label class="signature-upload" id="uploadLabel">
+                        Upload Signature
+                        <input type="file" 
+                            id="signatureInput" 
+                            accept="image/*" 
+                            style="display: none;" 
+                            onchange="handleSignatureUpload(event)">
+                    </label>
+                    <div class="signature-line"></div>
+                    <div id="signaturePreview"></div>
+                    <div class="signature-label">Signature</div>
+                </div>
+            </div>
+
+            <!-- Download Button -->
+            <button class="download-btn" onclick="downloadProgressReport()">Download Report</button>
+        </div>
+
+        <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+        <script>
+            const subjects = {
+                '1-5': ['Math', 'Science', 'Social Studies', 'Language', 'Arts', 'Religion'],
+                '6-7': ['Physics', 'Chemistry', 'Biology', 'Calculus', 'Literature', 'History', 'Geography', 'Economics', 'Philosophy']
+            };
+
+            function getSubjectGroup(classNumber) {
+                return classNumber <= 5 ? '1-5' : '6-7';
+            }
+
+            function createRow(isInitial = false, index = -1) {
+                const row = document.createElement('tr');
+                const classNumber = parseInt(document.getElementById('classSelector').value);
+                const subjectGroup = getSubjectGroup(classNumber);
+                const subjectArray = subjects[subjectGroup];
+                
+                row.innerHTML = `
+                    <td>
+                        <input type="text" ${isInitial ? `value="${subjectArray[index]}"` : ''}>
+                    </td>
+                    <td><input type="number" min="0" max="100" class="score-input" oninput="calculateGrade(this)"></td>
+                    <td class="grade-cell"></td>
+                    <td><span class="delete-btn" onclick="deleteRow(this)">remove</span></td>
+                `;
+                return row;
+            }
+
+            function updateTable() {
+                const classNumber = parseInt(document.getElementById('classSelector').value);
+                const subjectGroup = getSubjectGroup(classNumber);
+                const tableBody = document.getElementById('tableBody');
+                const rowCount = classNumber <= 5 ? 6 : 9;
+                
+                // Clear existing rows
+                tableBody.innerHTML = '';
+                
+                // Create new rows with subjects
+                for(let i = 0; i < rowCount; i++) {
+                    const row = createRow(true, i);
+                    tableBody.appendChild(row);
+                }
+                
+                calculateGPA();
+            }
+
+            function addRow() {
+                const tableBody = document.getElementById('tableBody');
+                tableBody.appendChild(createRow());
+                calculateGPA();
+            }
+
+            function deleteRow(btn) {
+                btn.closest('tr').remove();
+                calculateGPA();
+            }
+
+            function calculateGrade(input) {
+                const score = parseInt(input.value) || 0;
+                const gradeCell = input.parentElement.nextElementSibling;
+                let grade = '', points = 0;
+
+                if (score >= 80) { grade = 'A+ (4.00)'; points = 4.0; }
+                else if (score >= 75) { grade = 'A (3.75)'; points = 3.75; }
+                else if (score >= 70) { grade = 'A- (3.50)'; points = 3.5; }
+                else if (score >= 65) { grade = 'B+ (3.25)'; points = 3.25; }
+                else if (score >= 60) { grade = 'B (3.00)'; points = 3.0; }
+                else if (score >= 55) { grade = 'B- (2.75)'; points = 2.75; }
+                else if (score >= 50) { grade = 'C+ (2.50)'; points = 2.5; }
+                else if (score >= 45) { grade = 'C (2.25)'; points = 2.25; }
+                else if (score >= 40) { grade = 'D (2.00)'; points = 2.0; }
+                else { grade = 'F (0.00)'; points = 0; }
+
+                gradeCell.textContent = grade;
+                gradeCell.dataset.points = points;
+                calculateGPA();
+            }
+
+            function calculateGPA() {
+                const grades = document.querySelectorAll('.grade-cell');
+                let total = 0, count = 0;
+                
+                grades.forEach(grade => {
+                    if (grade.dataset.points) {
+                        total += parseFloat(grade.dataset.points);
+                        count++;
+                    }
+                });
+                
+                const gpa = count > 0 ? (total / count).toFixed(2) : 0.00;
+                document.getElementById('gpa').textContent = gpa;
+            }
+            function handleSignatureUpload(event) {
+                const file = event.target.files[0];
+                const preview = document.getElementById('signaturePreview');
+                const uploadLabel = document.getElementById('uploadLabel');
+
+                if (!file) {
+                    // If user cancels upload, check if we already have a signature
+                    if (!preview.style.backgroundImage.includes('none')) {
+                        uploadLabel.style.display = 'none';
+                    }
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.style.backgroundImage = `url(${e.target.result})`;
+                    uploadLabel.style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+            }
+
+            // Modified click handler
+            document.getElementById('signaturePreview').addEventListener('click', function() {
+                // Always show file dialog, existing image will be replaced if new file selected
+                document.getElementById('signatureInput').value = null;
+                document.getElementById('signatureInput').click();
+            });
+            // Reset upload label if no file selected
+            document.getElementById('signatureInput').addEventListener('change', function(e) {
+                if(!e.target.files.length) {
+                    document.getElementById('uploadLabel').style.display = 'block';
+                }
+            });
+
+            // Donaload Function
+            async function downloadProgressReport() {
+                const addRowBtn = document.querySelector('.btn-primary');
+                let originalAddRowStyle = '';
+                try {
+                    // Store original styles
+                    originalAddRowStyle = addRowBtn.style.cssText;
+
+                    // Hide download button temporarily
+                    addRowBtn.classList.add('hide-for-capture');
+                    const downloadBtn = document.querySelector('.download-btn');
+                    downloadBtn.style.display = 'none';
+
+                    const page = document.querySelector('.page');
+                    const canvas = await html2canvas(page, {
+                        width: 210 * 3.78,  // Convert mm to pixels
+                        height: 297 * 3.78, // 210mm*3.78 ≈ 794px
+                        scale: 1,
+                        logging: true,
+                        backgroundColor: null
+                    });
+
+                    // Get name and code values
+                    const name = document.querySelector('input[type="text"]').value.trim() || 'progress';
+                    const code = document.querySelectorAll('input[type="text"]')[1].value.trim() || 'report';
+                    
+                    // Convert to JPEG
+                    const link = document.createElement('a');
+                    link.download = `${name}-${code}.jpeg`.replace(/\s+/g, '-');
+                    link.href = canvas.toDataURL('image/jpeg', 1.0); // Maximum quality
+                    link.click();
+
+                    // Restore elements
+                    downloadBtn.style.display = 'block';
+                    addRowBtn.classList.remove('hide-for-capture');
+
+                } catch (error) {
+                    console.error('Error generating report:', error);
+                    // Ensure restoration even on error
+                    addRowBtn.classList.remove('hide-for-capture');
+                }
+            }
+
+            // Initialize table on load
+            window.onload = updateTable;
+        </script>
+    </body>
+</html>

@@ -1,0 +1,290 @@
+body {
+    margin: 0;
+    background: white !important;
+}
+
+.page {
+    width: 210mm; /* Exact A4 width */
+    height: 297mm; /* Exact A4 height */
+    margin: 0 auto;
+    padding: 20px;
+    background-image: url('./media/Qarat-Charity.jpg');
+    position: relative;
+    box-sizing: border-box;
+}
+
+.container {
+    margin-bottom: 30px;
+    padding: 25px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background: white;
+}
+
+.container:last-child {
+    margin-bottom: 0;
+}
+
+/* Header Title Styling */
+.header-title {
+    text-align: center;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    /* border-bottom: 2px solid #3498db; */
+}
+
+.header-title h1 {
+    margin: 0;
+    font-size: 2.2rem;
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+.header-title h4 {
+    margin: 0.5rem 0 0;
+    font-size: 1.1rem;
+    color: #7f8c8d;
+    font-weight: 400;
+}
+
+/* Header Fields Section */
+.header-row {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.2rem;
+}
+
+.header-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    
+}
+
+.header-item label {
+    font-weight: 600;
+    color: #34495e;
+    margin-bottom: -0.5rem; /* Compensate for input padding */
+}
+
+/* Input alignment */
+.header-item > div {
+    width: 100%;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* For select+input combinations */
+.select-input-group {
+    display: flex;
+    gap: 0.5rem;
+}
+
+select, input[type="text"], input[type="number"] {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Grade Table */
+.grade-table {
+    width: 100%;
+    border-collapse: collapse;
+    /* margin: 2rem 0; */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    border: 1px solid #dee2e6;
+}
+
+.grade-table th,
+.grade-table td {
+    padding: 0; /* Remove cell padding */
+    text-align: left;
+    border: 1px solid #dee2e6;
+    position: relative;
+}
+
+.grade-table th {
+    background-color: #3498db;
+    color: white;
+    font-weight: 600;
+    padding: 0.8rem; /* Keep padding for headers */
+}
+
+.grade-table td input[type="text"],
+.grade-table td input[type="number"] {
+    width: 100%;
+    height: 100%;
+    /* padding: 1rem; Match header padding */
+    border: none;
+    border-radius: 0;
+    box-sizing: border-box;
+    background: transparent;
+    transition: background-color 0.2s ease;
+}
+
+.grade-table td input:focus {
+    outline: none;
+    background-color: rgba(52,152,219,0.05);
+}
+
+
+/* Center Grade and Action columns */
+.grade-table th:nth-child(3),
+.grade-table td:nth-child(3),
+.grade-table th:nth-child(4),
+.grade-table td:nth-child(4) {
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Delete button positioning */
+.delete-btn {
+    display: inline-block;
+    margin: 0 auto;
+    opacity: 0;
+    cursor: pointer;
+    color: #e74c3c;
+    background: none;
+    border: none;
+    padding: 0 8px;
+    font-size: 1.1rem;
+    transition: opacity 0.3s ease;
+    vertical-align: middle;
+}
+
+/* Hover effects */
+.grade-table tr:hover {
+    background-color: #f8f9fa;
+}
+
+.grade-table tr:hover .delete-btn {
+    opacity: 1;
+}
+
+/* Zebra striping */
+.grade-table tr:nth-child(even) {
+    background-color: #fdfdfe;
+}
+
+/* Add row button and GPA container */
+.action-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0.5rem 0;
+}
+
+.button-group {
+    margin: 0;
+}
+
+/* GPA Display */
+.gpa-display {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 0.5rem 0;
+}
+
+/* Signature Section */
+.signature-container {
+    margin-top: 2rem;
+    width: 265px;
+    position: relative;
+}
+
+.signature-upload {
+    display: block;
+    margin-bottom: 1rem;
+    color: #3498db;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    padding: 8px 12px;
+    border: 1px solid #3498db;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.signature-upload:hover {
+    color: #fff;
+    background-color: #3498db;
+}
+
+#signaturePreview {
+    width: 180px;
+    height: 60px; /* Reduced height */
+    margin: 0 auto 20px; /* Added bottom margin */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    position: relative;
+    z-index: 2;
+}
+
+.signature-line {
+    position: absolute;
+    bottom: 2px; /* Moved line lower */
+    left: 0;
+    right: 0;
+    border-bottom: 1px solid #737577;
+}
+
+.signature-label {
+    position: absolute;
+    bottom: -18px; 
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Download Button */
+.download-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 24px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.download-btn:hover {
+    background-color: #2980b9;
+    transform: translateX(-50%) scale(1.05);
+}
+
+/* Hide Add Row button for Capture */
+.hide-for-capture {
+    visibility: hidden;
+    position: absolute; /* Remove from layout flow */
+}
+
+/* Print Styles */
+@media print {
+    body {
+        background: none;
+    }
+    .page {
+        box-shadow: none;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        min-height: 100%;
+    }
+    .download-btn {
+        display: none !important;
+    }
+}
