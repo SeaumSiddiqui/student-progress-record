@@ -17,26 +17,26 @@
                 </div>
                 <!-- Header Fields -->
                 <div class="header-row">
-                    <div class="header-item">
-                        <label>Name</label>
-                        <div class="input-group">
-                            <input type="text" placeholder="Enter name">
-                        </div>
-                    </div>
-                    <div class="header-item">
-                        <label>Code</label>
+                    <div class="header-item left-item">
+                        <label>Code: </label>
                         <div class="input-group">
                             <input type="text" placeholder="Enter code">
+                        </div>
+                    </div>
+                    <div class="header-item right-item">
+                        <label>Name: </label>
+                        <div class="input-group">
+                            <input type="text" placeholder="Enter name">
                         </div>
                     </div>
                 </div>
 
                 <div class="header-row">
-                    <div class="header-item">
-                        <label>Class</label>
+                    <div class="header-item left-item">
+                        <label>Class: </label>
                         <div class="select-input-group">
                             <select id="classSelector" onchange="updateTable()">
-                                <option value="">0</option>
+                                <option value=""></option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -50,25 +50,34 @@
                             </select>
                         </div>
                     </div>
-                    <div class="header-item">
-                        <label>Semester</label>
-                        <div class="input-group">
-                            <input type="text" placeholder="Current semester">
+                    <div class="header-item right-item">
+                        <label>Division: </label>
+                        <div class="select-input-group">
+                            <select id="feedbackSelect">
+                                <option value="">Calculating...</option>
+                                <option value="Best">Best</option>
+                                <option value="Better">Better</option>
+                                <option value="Good">Good</option>
+                            </select>
                         </div>
                     </div>
                 </div>
 
                 <div class="header-row">
-                    <div class="header-item">
-                        <label>Institution</label>
-                        <div class="input-group">
-                            <input type="text" placeholder="Enter institution name">
+                    <div class="header-item left-item">
+                        <label>Section: </label>
+                        <div class="select-input-group">
+                            <select>
+                                <option value=""></option>
+                                <option value="Primary">Primary</option>
+                                <option value="Secondary">Secondary</option>
+                            </select>
                         </div>
                     </div>
-                    <div class="header-item">
-                        <label>Section</label>
+                    <div class="header-item right-item">
+                        <label>Institution: </label>
                         <div class="input-group">
-                            <input type="text" placeholder="Enter section">
+                            <input type="text" placeholder="Enter institution name">
                         </div>
                     </div>
                 </div>
@@ -78,9 +87,9 @@
                     <thead>
                         <tr>
                             <th>Subject</th>
-                            <th>Obtained Number (%)</th>
+                            <th>Obtained Number</th>
                             <th>Grade</th>
-                            <th></th>
+                            <th>Remarks</th>
                         </tr>
                     </thead>
                     <tbody id="tableBody">
@@ -107,9 +116,9 @@
                             style="display: none;" 
                             onchange="handleSignatureUpload(event)">
                     </label>
-                    <div class="signature-line"></div>
                     <div id="signaturePreview"></div>
-                    <div class="signature-label">Signature</div>
+                    <div class="signature-line"></div>
+                    <div class="signature-label">Authorized Signature</div>
                 </div>
             </div>
 
@@ -175,6 +184,20 @@
                 calculateGPA();
             }
 
+            function updateFeedback(gpa) {
+                const feedbackSelect = document.getElementById('feedbackSelect');
+                
+                if (gpa >= 3.75) {
+                    feedbackSelect.value = 'Best';
+                } else if (gpa >= 3.0) {
+                    feedbackSelect.value = 'Better';
+                } else if (gpa > 0) {
+                    feedbackSelect.value = 'Good';
+                } else {
+                    feedbackSelect.value = '';
+                }
+            }
+
             function calculateGrade(input) {
                 const score = parseInt(input.value) || 0;
                 const gradeCell = input.parentElement.nextElementSibling;
@@ -209,6 +232,9 @@
                 
                 const gpa = count > 0 ? (total / count).toFixed(2) : 0.00;
                 document.getElementById('gpa').textContent = gpa;
+
+                // Update feedback Division field whenever GPA changes
+                updateFeedback(parseFloat(gpa));
             }
             function handleSignatureUpload(event) {
                 const file = event.target.files[0];
@@ -277,11 +303,18 @@
                     // Get name and code values
                     const name = document.querySelector('input[type="text"]').value.trim() || 'progress';
                     const code = document.querySelectorAll('input[type="text"]')[1].value.trim() || 'report';
-                    
+
+                    // Format components
+                    const formattedCode = code.replace(/[\/_]/g, '-');  // Convert slashes and underscores to hyphens
+                    const formattedName = name.replace(/\s+/g, '_'); // Convert spaces to underscores
+
+                    // Create filename
+                    const filename = `${formattedCode}-${formattedName}-pr.jpeg`.replace(/(--+|__+)/g, '-');
+
                     // Convert to JPEG
                     const link = document.createElement('a');
-                    link.download = `${name}-${code}.jpeg`.replace(/\s+/g, '-');
-                    link.href = canvas.toDataURL('image/jpeg', 1.0); // Maximum quality
+                    link.download = filename;
+                    link.href = canvas.toDataURL('image/jpeg', 1.0);
                     link.click();
 
                     // Restore elements

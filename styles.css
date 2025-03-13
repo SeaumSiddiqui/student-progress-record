@@ -1,6 +1,10 @@
 body {
     margin: 0;
-    background: rgb(250, 249, 249) !important;
+    background: rgb(63, 63, 63) !important;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 
 .page {
@@ -10,8 +14,12 @@ body {
     padding: 20px;
 
     background: rgb(230, 230, 230);
-    background-image: url('./media/flag.png');
+    background-image: url('./media/Progress-report-background.png');
     crossOrigin: 'anonymous';
+
+    background-size: cover; /* Ensures the image fully covers the background */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents tiling */
 
     position: relative;
     box-sizing: border-box;
@@ -20,10 +28,8 @@ body {
 }
 
 .container {
-    padding: 25px;
-    border: 1px solid #e0e0e0;
-    border-radius: 5px;
-    background: rgba(255, 255, 255, 0.938);
+    padding: 30px;
+    background: transparent;
 
     flex: 1;
     min-height: 0; /* Allows shrinking */
@@ -40,15 +46,10 @@ body {
     overflow-y: auto;
 }
 
-/* If using multiple containers, remove margin from last one */
-/* .container:last-child {
-    margin-bottom: 0;
-} */
-
 /* Header Title Styling */
 .header-title {
     text-align: center;
-    margin-bottom: 1rem;
+    margin: 0.5rem 0 1rem 0;
     padding-bottom: 1rem;
     /* border-bottom: 1px solid #6b2037; */
 }
@@ -74,95 +75,122 @@ body {
     margin-bottom: 1.5rem;
 }
 
+/* Left column (30% width) */
+.header-item.left-item {
+    flex: 0 0 30%; /* Don't grow, don't shrink, 30% width */
+    max-width: 30%;
+}
+
+/* Right column (70% width) */
+.header-item.right-item {
+    flex: 0 0 calc(70% - 1.5rem); /* Account for the gap */
+    max-width: calc(70% - 1.5rem);
+}
+
 .header-item {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    
-}
-
-.header-item label {
-    font-weight: 600;
-    color: #34495e;
-    margin-bottom: -0.5rem; /* Compensate for input padding */
-}
-
-/* Input alignment */
-.header-item > div {
-    width: 100%;
-}
-
-.input-group {
     display: flex;
     align-items: center;
     gap: 0.5rem;
 }
 
-/* For select+input combinations */
-.select-input-group {
-    display: flex;
-    gap: 0.5rem;
+/* Labels take natural width */
+.header-item label {
+    flex-shrink: 0;
+    white-space: nowrap;
+    font-weight: 600;
+    color: #34495e;
+    transform: translateY(-1px); 
+    padding-bottom: 2px;
 }
 
-select, input[type="text"], input[type="number"] {
+/* Input containers expand to fill remaining space */
+.input-group, 
+.select-input-group {
+    flex-grow: 1;
+    min-width: 0;
+}
+
+/* Input fields */
+select, 
+input[type="text"], 
+input[type="number"] {
     width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    box-sizing: border-box;
+    padding: 0.4rem 0;
+    border: none;
+    border-bottom: 2px solid #ced4da;
+    background: transparent;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s ease-in-out;
+
+    line-height: 1.5;
+    /* padding: 0.5rem 0; */
+    /* vertical-align: text-bottom;
+    box-sizing: content-box;  */
+}
+
+select:focus, 
+input[type="text"]:focus, 
+input[type="number"]:focus {
+    border-bottom: 2px solid #6b2037;
+}
+
+/* Adjust select padding for dropdown arrow */
+select {
+    padding-right: 1.5rem;
+}
+
+/* For select + input combinations */
+.select-input-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 /* Grade Table */
 .grade-table {
-    margin-top:0.5rem;
+    margin-top: 1rem;
     width: 100%;
     border-collapse: collapse;
-    /* margin: 2rem 0; */
     box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     border: 1px solid #dee2e6;
 }
 
 .grade-table th,
 .grade-table td {
-    padding: 0; /* Remove cell padding */
-    text-align: left;
+    padding: 0; /* Keep your original padding */
     border: 1px solid #dee2e6;
     position: relative;
+    text-align: center; /* Default center alignment */
+    vertical-align: middle; /* vertical centering */
 }
 
+/* First column alignment override */
+.grade-table th:nth-child(1),
+.grade-table td:nth-child(1) {
+    text-align: left; /* left alignment */
+}
+
+/* Keep original header styling */
 .grade-table th {
     background-color: #6b2037;
     color: white;
     font-weight: 600;
-    padding: 0.8rem; /* Keep padding for headers */
+    padding: 0.6rem; 
 }
 
+/* Input fields */
 .grade-table td input[type="text"],
 .grade-table td input[type="number"] {
     width: 100%;
-    height: 100%;
-    /* padding: 1rem; Match header padding */
+    height: auto;
+    padding: 0.5rem; 
     border: none;
     border-radius: 0;
     box-sizing: border-box;
     background: transparent;
     transition: background-color 0.2s ease;
-}
-
-.grade-table td input:focus {
-    outline: none;
-    background-color: rgba(52,152,219,0.05);
-}
-
-
-/* Center Grade and Action columns */
-.grade-table th:nth-child(3),
-.grade-table td:nth-child(3),
-.grade-table th:nth-child(4),
-.grade-table td:nth-child(4) {
-    text-align: center;
-    vertical-align: middle;
+    text-align: inherit; /* follow column alignment */
 }
 
 /* Delete button positioning */
@@ -217,14 +245,14 @@ select, input[type="text"], input[type="number"] {
 /* Signature Section */
 .signature-container {
     width: 265px;
-    margin: auto 0 1rem 0;
+    margin: auto 0 3rem 5rem;
     padding-top: 2rem;
     position: relative;
 }
 
 .signature-upload {
     display: block;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     color: #6b2037;
     cursor: pointer;
     transition: color 0.3s ease;
@@ -252,7 +280,7 @@ select, input[type="text"], input[type="number"] {
 
 .signature-line {
     position: absolute;
-    bottom: 2px; /* Moved line lower */
+    bottom: 15px; /* Moved line lower */
     left: 0;
     right: 0;
     border-bottom: 1px solid #737577;
@@ -260,9 +288,15 @@ select, input[type="text"], input[type="number"] {
 
 .signature-label {
     position: absolute;
-    bottom: -18px; 
+    bottom: -3px; 
     left: 50%;
     transform: translateX(-50%);
+
+    font-weight: bolder;
+
+    white-space: nowrap; 
+    display: inline-block; 
+    text-align: center; 
 }
 
 /* Download Button */
