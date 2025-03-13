@@ -2,6 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
+        <meta name="referrer" content="no-referrer">
         <title>Student Progress Record</title>
         <link rel="stylesheet" href="styles.css">
     </head>
@@ -71,7 +72,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Grade Table -->
                 <table id="gradeTable" class="grade-table">
                     <thead>
@@ -257,7 +258,15 @@
                     downloadBtn.style.display = 'none';
 
                     const page = document.querySelector('.page');
+
+                    // CrossOrigin anonymous for background image element
+                    const bgImage = new Image();
+                    bgImage.crossOrigin = "Anonymous";
+                    bgImage.src = './media/Qarat-Charity.jpg';
+
                     const canvas = await html2canvas(page, {
+                        useCORS: true, // Enable CORS
+                        allowTaint: true, // Important!
                         width: 210 * 3.78,  // Convert mm to pixels
                         height: 297 * 3.78, // 210mm*3.78 ≈ 794px
                         scale: 1,
