@@ -67,7 +67,7 @@
                     <div class="header-item left-item">
                         <label>Section: </label>
                         <div class="select-input-group">
-                            <select>
+                            <select id="sectionSelect">
                                 <option value=""></option>
                                 <option value="Primary">Primary</option>
                                 <option value="Secondary">Secondary</option>
@@ -102,6 +102,10 @@
                         <button class="btn btn-primary" onclick="addRow()">Add Row</button>
                     </div>
                     
+                    <div class="total-display">
+                        Total Obtained Number: <span id="totalObtained">0</span>
+                    </div>
+    
                     <div class="gpa-display">
                         GPA: <span id="gpa">0.00</span>
                     </div>
@@ -130,8 +134,8 @@
 
         <script>
             const subjects = {
-                '1-5': ['Math', 'Science', 'Social Studies', 'Language', 'Arts', 'Religion'],
-                '6-7': ['Physics', 'Chemistry', 'Biology', 'Calculus', 'Literature', 'History', 'Geography', 'Economics', 'Philosophy']
+                '1-5': ['English', 'Bangla', 'Mathematics', 'Bangladesh And Global Studies', 'Science', 'Islam and Moral Studies'],
+                '6-7': ['English', 'Bangla', 'Mathematics', 'Bangladesh And Global Studies', 'Science', 'Islam and Moral Studies', 'Work and Life Oriented Education', 'Information And Communication Technology', 'Physical Education and Health', 'Arts and Crafts', 'Home Science', 'Agriculture Studies']
             };
 
             function getSubjectGroup(classNumber) {
@@ -159,12 +163,18 @@
                 const classNumber = parseInt(document.getElementById('classSelector').value);
                 const subjectGroup = getSubjectGroup(classNumber);
                 const tableBody = document.getElementById('tableBody');
-                const rowCount = classNumber <= 5 ? 6 : 9;
+                const rowCount = classNumber <= 5 ? 6 : 12;
                 
-                // Clear existing rows
+                // Update section based on class
+                const sectionSelect = document.getElementById('sectionSelect');
+                if (!isNaN(classNumber)) {
+                    sectionSelect.value = classNumber <= 5 ? 'Primary' : 'Secondary';
+                } else {
+                    sectionSelect.value = '';
+                }
+
+                // Clear existing rows and create new ones
                 tableBody.innerHTML = '';
-                
-                // Create new rows with subjects
                 for(let i = 0; i < rowCount; i++) {
                     const row = createRow(true, i);
                     tableBody.appendChild(row);
@@ -203,15 +213,15 @@
                 const gradeCell = input.parentElement.nextElementSibling;
                 let grade = '', points = 0;
 
-                if (score >= 80) { grade = 'A+ (4.00)'; points = 4.0; }
-                else if (score >= 75) { grade = 'A (3.75)'; points = 3.75; }
-                else if (score >= 70) { grade = 'A- (3.50)'; points = 3.5; }
-                else if (score >= 65) { grade = 'B+ (3.25)'; points = 3.25; }
-                else if (score >= 60) { grade = 'B (3.00)'; points = 3.0; }
-                else if (score >= 55) { grade = 'B- (2.75)'; points = 2.75; }
-                else if (score >= 50) { grade = 'C+ (2.50)'; points = 2.5; }
-                else if (score >= 45) { grade = 'C (2.25)'; points = 2.25; }
-                else if (score >= 40) { grade = 'D (2.00)'; points = 2.0; }
+                if (score >= 80) { grade = 'A+ (5.00)'; points = 5.0; }
+                else if (score >= 70) { grade = 'A (4.00)'; points = 4.0; }
+                else if (score >= 60) { grade = 'A- (3.50)'; points = 3.5; }
+                // else if (score >= 65) { grade = 'B+ (3.25)'; points = 3.25; }
+                else if (score >= 50) { grade = 'B (3.00)'; points = 3.0; }
+                // else if (score >= 55) { grade = 'B- (2.75)'; points = 2.75; }
+                // else if (score >= 50) { grade = 'C+ (2.50)'; points = 2.5; }
+                else if (score >= 40) { grade = 'C (2.00)'; points = 2.0; }
+                else if (score >= 33) { grade = 'D (1.00)'; points = 1.0; }
                 else { grade = 'F (0.00)'; points = 0; }
 
                 gradeCell.textContent = grade;
@@ -221,21 +231,33 @@
 
             function calculateGPA() {
                 const grades = document.querySelectorAll('.grade-cell');
-                let total = 0, count = 0;
-                
+                let totalPoints = 0, count = 0;
+                let totalObtained = 0;
+
+                // Calculate total obtained numbers
+                const scoreInputs = document.querySelectorAll('.score-input');
+                scoreInputs.forEach(input => {
+                    const score = parseInt(input.value) || 0;
+                    totalObtained += score;
+                });
+
+                // Update total obtained display
+                document.getElementById('totalObtained').textContent = totalObtained;
+
+                // Existing GPA calculation
                 grades.forEach(grade => {
                     if (grade.dataset.points) {
-                        total += parseFloat(grade.dataset.points);
+                        totalPoints += parseFloat(grade.dataset.points);
                         count++;
                     }
                 });
                 
-                const gpa = count > 0 ? (total / count).toFixed(2) : 0.00;
+                const gpa = count > 0 ? (totalPoints / count).toFixed(2) : 0.00;
                 document.getElementById('gpa').textContent = gpa;
 
-                // Update feedback Division field whenever GPA changes
                 updateFeedback(parseFloat(gpa));
             }
+
             function handleSignatureUpload(event) {
                 const file = event.target.files[0];
                 const preview = document.getElementById('signaturePreview');
@@ -301,8 +323,8 @@
                     });
 
                     // Get name and code values
-                    const name = document.querySelector('input[type="text"]').value.trim() || 'progress';
-                    const code = document.querySelectorAll('input[type="text"]')[1].value.trim() || 'report';
+                    const code = document.querySelector('input[type="text"]').value.trim() || 'progress';
+                    const name = document.querySelectorAll('input[type="text"]')[1].value.trim() || 'report';
 
                     // Format components
                     const formattedCode = code.replace(/[\/_]/g, '-');  // Convert slashes and underscores to hyphens

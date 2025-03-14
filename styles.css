@@ -49,14 +49,14 @@ body {
 /* Header Title Styling */
 .header-title {
     text-align: center;
-    margin: 0.5rem 0 1rem 0;
+    margin: 0;
     padding-bottom: 1rem;
     /* border-bottom: 1px solid #6b2037; */
 }
 
 .header-title h1 {
     margin: 0;
-    font-size: 2.2rem;
+    font-size: 2rem;
     color: #2c3e50;
     font-weight: 600;
 }
@@ -165,10 +165,29 @@ select {
     vertical-align: middle; /* vertical centering */
 }
 
-/* First column alignment override */
+/* column alignments override */
 .grade-table th:nth-child(1),
 .grade-table td:nth-child(1) {
     text-align: left; /* left alignment */
+    width: 45%; 
+    min-width: 200px; 
+}
+.grade-table th:nth-child(2),
+.grade-table td:nth-child(2) {
+    width: 20%; 
+    text-align: center;
+}
+
+.grade-table th:nth-child(3),
+.grade-table td:nth-child(3) {
+    width: 15%;
+    text-align: center;
+}
+
+.grade-table th:nth-child(4),
+.grade-table td:nth-child(4) {
+    width: 15%;
+    text-align: center;
 }
 
 /* Keep original header styling */
@@ -232,6 +251,12 @@ select {
 
 .button-group {
     margin: 0;
+}
+
+.total-display {
+    margin: 0 20px;
+    font-weight: bold;
+    color: #2c3e50;
 }
 
 /* GPA Display */
