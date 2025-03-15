@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    background: rgb(63, 63, 63) !important;
+    background: rgb(56, 54, 54) !important;
 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -14,7 +14,7 @@ body {
     padding: 20px;
 
     background: rgb(230, 230, 230);
-    background-image: url('./media/Progress-report-background.png');
+    background-image: url('./media/background.png');
     crossOrigin: 'anonymous';
 
     background-size: cover; /* Ensures the image fully covers the background */
@@ -49,7 +49,7 @@ body {
 /* Header Title Styling */
 .header-title {
     text-align: center;
-    margin: 0;
+    margin-top: 0.5rem;
     padding-bottom: 1rem;
     /* border-bottom: 1px solid #6b2037; */
 }
@@ -124,9 +124,6 @@ input[type="number"] {
     transition: border-color 0.2s ease-in-out;
 
     line-height: 1.5;
-    /* padding: 0.5rem 0; */
-    /* vertical-align: text-bottom;
-    box-sizing: content-box;  */
 }
 
 select:focus, 
@@ -149,7 +146,7 @@ select {
 
 /* Grade Table */
 .grade-table {
-    margin-top: 1rem;
+    margin-top: 0.6rem;
     width: 100%;
     border-collapse: collapse;
     box-shadow: 0 1px 3px rgba(0,0,0,0.05);
@@ -165,29 +162,32 @@ select {
     vertical-align: middle; /* vertical centering */
 }
 
-/* column alignments override */
+/* Column widths */
 .grade-table th:nth-child(1),
-.grade-table td:nth-child(1) {
-    text-align: left; /* left alignment */
-    width: 45%; 
-    min-width: 200px; 
-}
-.grade-table th:nth-child(2),
-.grade-table td:nth-child(2) {
-    width: 20%; 
+.grade-table td:nth-child(1) { /* Serial column */
+    width: 5%;
     text-align: center;
+}
+
+.grade-table th:nth-child(2),
+.grade-table td:nth-child(2) { /* Subject column */
+    width: 40%;
+    text-align: left;
 }
 
 .grade-table th:nth-child(3),
-.grade-table td:nth-child(3) {
-    width: 15%;
-    text-align: center;
+.grade-table td:nth-child(3) { /* Obtained Number */
+    width: 20%;
 }
 
 .grade-table th:nth-child(4),
-.grade-table td:nth-child(4) {
+.grade-table td:nth-child(4) { /* Grade */
     width: 15%;
-    text-align: center;
+}
+
+.grade-table th:nth-child(5),
+.grade-table td:nth-child(5) { /* Remarks */
+    width: 15%;
 }
 
 /* Keep original header styling */
@@ -324,14 +324,20 @@ select {
     text-align: center; 
 }
 
-/* Download Button */
-.download-btn {
+.action-buttons {
     position: fixed;
-    bottom: 20px;
+    bottom: 3rem;
     left: 50%;
     transform: translateX(-50%);
+    display: flex;
+    gap: 60em;
+    z-index: 1000;
+}
+
+/* Shared Button Styles */
+.download-btn,
+.refresh-btn {
     padding: 12px 24px;
-    background-color: #6b2037;
     color: white;
     border: none;
     border-radius: 25px;
@@ -339,12 +345,27 @@ select {
     font-size: 1.1rem;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     transition: all 0.3s ease;
-    z-index: 1000;
 }
 
+/* Download Button Specific */
+.download-btn {
+    background-color: #6b2037;
+}
+
+/* Refresh Button Specific */
+.refresh-btn {
+    background-color: #2c3e50; /* Dark blue-gray color */
+}
+
+/* Hover Effects */
 .download-btn:hover {
     background-color: #501225;
-    transform: translateX(-50%) scale(1.05);
+    transform: scale(1.05);
+}
+
+.refresh-btn:hover {
+    background-color: #34495e;
+    transform: scale(1.05);
 }
 
 /* Hide Add Row button for Capture */
@@ -365,7 +386,19 @@ select {
         width: 100%;
         min-height: 100%;
     }
-    .download-btn {
+    .action-buttons {
         display: none !important;
     }
 }
+
+/* @font-face {
+    font-family: 'Proxima Nova';
+    src: url('/fonts/ProximaNova-Reg-webfont.woff2') format('woff2');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Proxima Nova';
+    src: url('/fonts/ProximaNova-Bold-webfont.woff2') format('woff2');
+    font-weight: bold;
+} */

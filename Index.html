@@ -86,6 +86,7 @@
                 <table id="gradeTable" class="grade-table">
                     <thead>
                         <tr>
+                            <th></th>
                             <th>Subject</th>
                             <th>Obtained Number</th>
                             <th>Grade</th>
@@ -126,8 +127,11 @@
                 </div>
             </div>
 
-            <!-- Download Button -->
-            <button class="download-btn" onclick="downloadProgressReport()">Download Report</button>
+            <!-- Download and Refresh Button -->
+            <div class="action-buttons">
+                <button class="refresh-btn" onclick="refreshForm()">Refresh</button>
+                <button class="download-btn" onclick="downloadProgressReport()">Download</button>
+            </div>
         </div>
 
         <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
@@ -149,6 +153,7 @@
                 const subjectArray = subjects[subjectGroup];
                 
                 row.innerHTML = `
+                    <td class="serial-number"></td>
                     <td>
                         <input type="text" ${isInitial ? `value="${subjectArray[index]}"` : ''}>
                     </td>
@@ -157,6 +162,14 @@
                     <td><span class="delete-btn" onclick="deleteRow(this)">remove</span></td>
                 `;
                 return row;
+            }
+
+            // Update serial numbers
+            function updateSerialNumbers() {
+                const rows = document.querySelectorAll('#tableBody tr');
+                rows.forEach((row, index) => {
+                    row.querySelector('.serial-number').textContent = index + 1;
+                });
             }
 
             function updateTable() {
@@ -179,18 +192,20 @@
                     const row = createRow(true, i);
                     tableBody.appendChild(row);
                 }
-                
+                updateSerialNumbers();
                 calculateGPA();
             }
 
             function addRow() {
                 const tableBody = document.getElementById('tableBody');
                 tableBody.appendChild(createRow());
+                updateSerialNumbers();
                 calculateGPA();
             }
 
             function deleteRow(btn) {
                 btn.closest('tr').remove();
+                updateSerialNumbers();
                 calculateGPA();
             }
 
@@ -295,28 +310,28 @@
             // Donaload Function
             async function downloadProgressReport() {
                 const addRowBtn = document.querySelector('.btn-primary');
+                const actionButtons = document.querySelector('.action-buttons'); // Get button container
                 let originalAddRowStyle = '';
                 try {
                     // Store original styles
                     originalAddRowStyle = addRowBtn.style.cssText;
 
-                    // Hide download button temporarily
+                    // Hide elements for capture
                     addRowBtn.classList.add('hide-for-capture');
-                    const downloadBtn = document.querySelector('.download-btn');
-                    downloadBtn.style.display = 'none';
+                    actionButtons.style.display = 'none'; // Hide both buttons
 
                     const page = document.querySelector('.page');
 
                     // CrossOrigin anonymous for background image element
                     const bgImage = new Image();
                     bgImage.crossOrigin = "Anonymous";
-                    bgImage.src = './media/Qarat-Charity.jpg';
+                    bgImage.src = './media/background.png';
 
                     const canvas = await html2canvas(page, {
-                        useCORS: true, // Enable CORS
-                        allowTaint: true, // Important!
-                        width: 210 * 3.78,  // Convert mm to pixels
-                        height: 297 * 3.78, // 210mm*3.78 ≈ 794px
+                        useCORS: true,
+                        allowTaint: true,
+                        width: 210 * 3.78,
+                        height: 297 * 3.78,
                         scale: 1,
                         logging: true,
                         backgroundColor: null
@@ -327,8 +342,8 @@
                     const name = document.querySelectorAll('input[type="text"]')[1].value.trim() || 'report';
 
                     // Format components
-                    const formattedCode = code.replace(/[\/_]/g, '-');  // Convert slashes and underscores to hyphens
-                    const formattedName = name.replace(/\s+/g, '_'); // Convert spaces to underscores
+                    const formattedCode = code.replace(/[\/_]/g, '-');
+                    const formattedName = name.replace(/\s+/g, '_');
 
                     // Create filename
                     const filename = `${formattedCode}-${formattedName}-pr.jpeg`.replace(/(--+|__+)/g, '-');
@@ -339,15 +354,41 @@
                     link.href = canvas.toDataURL('image/jpeg', 1.0);
                     link.click();
 
-                    // Restore elements
-                    downloadBtn.style.display = 'block';
-                    addRowBtn.classList.remove('hide-for-capture');
-
                 } catch (error) {
                     console.error('Error generating report:', error);
-                    // Ensure restoration even on error
+                } finally {
+                    // Always restore elements
+                    actionButtons.style.display = 'flex'; // Show buttons again
                     addRowBtn.classList.remove('hide-for-capture');
                 }
+            }
+            function refreshForm() {
+                // Clear all input fields
+                document.querySelectorAll('input[type="text"], input[type="number"]').forEach(input => {
+                    input.value = '';
+                });
+
+                // Reset all dropdowns
+                document.getElementById('classSelector').value = '';
+                document.getElementById('feedbackSelect').value = '';
+                document.getElementById('sectionSelect').value = '';
+
+                // Clear grade table
+                const tableBody = document.getElementById('tableBody');
+                tableBody.innerHTML = '';
+                
+                // Reset calculated values
+                document.getElementById('totalObtained').textContent = '0';
+                document.getElementById('gpa').textContent = '0.00';
+
+                // Reset feedback message
+                document.getElementById('feedbackSelect').selectedIndex = 0;
+
+                // Keep signature by not clearing it
+                // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                
+                // Load table on initial state
+                updateTable();
             }
 
             // Initialize table on load
