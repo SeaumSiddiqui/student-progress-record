@@ -171,7 +171,7 @@ select {
 
 .grade-table th:nth-child(2),
 .grade-table td:nth-child(2) { /* Subject column */
-    width: 40%;
+    width: 45%;
     text-align: left;
 }
 
@@ -182,12 +182,12 @@ select {
 
 .grade-table th:nth-child(4),
 .grade-table td:nth-child(4) { /* Grade */
-    width: 15%;
+    width: 12%;
 }
 
 .grade-table th:nth-child(5),
 .grade-table td:nth-child(5) { /* Remarks */
-    width: 15%;
+    width: 12%;
 }
 
 /* Keep original header styling */
