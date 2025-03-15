@@ -1,5 +1,6 @@
 body {
     margin: 0;
+    padding: 3rem;
     background: rgb(56, 54, 54) !important;
 
     -webkit-font-smoothing: antialiased;
@@ -51,7 +52,7 @@ body {
     text-align: center;
     margin-top: 0.5rem;
     padding-bottom: 1rem;
-    /* border-bottom: 1px solid #6b2037; */
+    /* border-bottom: 1px solid #a5215b; */
 }
 
 .header-title h1 {
@@ -63,8 +64,8 @@ body {
 
 .header-title h4 {
     margin: 0.5rem 0 0;
-    font-size: 1.1rem;
-    color: #7f8c8d;
+    font-size: 1.3rem;
+    color: #555c5c;
     font-weight: 400;
 }
 
@@ -129,7 +130,7 @@ input[type="number"] {
 select:focus, 
 input[type="text"]:focus, 
 input[type="number"]:focus {
-    border-bottom: 2px solid #6b2037;
+    border-bottom: 2px solid #a5215b;
 }
 
 /* Adjust select padding for dropdown arrow */
@@ -169,7 +170,7 @@ select {
     text-align: center;
 }
 
-.grade-table th:nth-child(2),
+/* .grade-table th:nth-child(2), */
 .grade-table td:nth-child(2) { /* Subject column */
     width: 45%;
     text-align: left;
@@ -190,9 +191,9 @@ select {
     width: 12%;
 }
 
-/* Keep original header styling */
+/* Header styling */
 .grade-table th {
-    background-color: #6b2037;
+    background-color: #a5215b;
     color: white;
     font-weight: 600;
     padding: 0.6rem; 
@@ -247,6 +248,9 @@ select {
     justify-content: space-between;
     align-items: center;
     margin: 0.5rem 0;
+    padding: 0.5rem;
+    background-color: #a5215b;
+    border: 1px solid #dee2e6;
 }
 
 .button-group {
@@ -254,17 +258,17 @@ select {
 }
 
 .total-display {
-    margin: 0 20px;
     font-weight: bold;
-    color: #2c3e50;
+    color: white;
+    margin-left: 6.5rem;
 }
 
 /* GPA Display */
 .gpa-display {
     font-size: 1.2rem;
     font-weight: 600;
-    color: #2c3e50;
-    margin: 0.5rem 0;
+    color: white;
+    /* margin: 0.5rem 0; */
 }
 
 /* Signature Section */
@@ -278,18 +282,18 @@ select {
 .signature-upload {
     display: block;
     margin-bottom: 0.5rem;
-    color: #6b2037;
+    color: #a5215b;
     cursor: pointer;
     transition: color 0.3s ease;
     padding: 8px 12px;
-    border: 1px solid #6b2037;
+    border: 1px solid #a5215b;
     border-radius: 4px;
     text-align: center;
 }
 
 .signature-upload:hover {
     color: #fff;
-    background-color: #6b2037;
+    background-color: #74113f;
 }
 
 #signaturePreview {
@@ -324,6 +328,7 @@ select {
     text-align: center; 
 }
 
+/* Shared Button Styles */
 .action-buttons {
     position: fixed;
     bottom: 3rem;
@@ -334,7 +339,6 @@ select {
     z-index: 1000;
 }
 
-/* Shared Button Styles */
 .download-btn,
 .refresh-btn {
     padding: 12px 24px;
@@ -349,7 +353,7 @@ select {
 
 /* Download Button Specific */
 .download-btn {
-    background-color: #6b2037;
+    background-color: #a5215b;
 }
 
 /* Refresh Button Specific */
@@ -359,7 +363,7 @@ select {
 
 /* Hover Effects */
 .download-btn:hover {
-    background-color: #501225;
+    background-color: #74113f;
     transform: scale(1.05);
 }
 

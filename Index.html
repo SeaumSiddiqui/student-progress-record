@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="referrer" content="no-referrer">
-        <title>Student Progress Record</title>
+        <title>Student Progress Report</title>
         <link rel="stylesheet" href="styles.css">
     </head>
     
@@ -12,7 +12,7 @@
             <div class="container">
                 <!-- Header Titles -->
                 <div class="header-title">
-                    <h1>Student Progress Record</h1>
+                    <h1>Student Progress Report</h1>
                     <h4>Academic Year - 2024</h4>
                 </div>
                 <!-- Header Fields -->
@@ -86,7 +86,7 @@
                 <table id="gradeTable" class="grade-table">
                     <thead>
                         <tr>
-                            <th></th>
+                            <th>S/N</th>
                             <th>Subject</th>
                             <th>Obtained Number</th>
                             <th>Grade</th>
@@ -346,7 +346,7 @@
                     const formattedName = name.replace(/\s+/g, '_');
 
                     // Create filename
-                    const filename = `${formattedCode}-${formattedName}-pr.jpeg`.replace(/(--+|__+)/g, '-');
+                    const filename = `${formattedCode}-${formattedName}-SPR-24.jpeg`.replace(/(--+|__+)/g, '-');
 
                     // Convert to JPEG
                     const link = document.createElement('a');
