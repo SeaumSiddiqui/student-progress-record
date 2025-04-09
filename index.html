@@ -10,11 +10,27 @@
     <body>
         <div class="page">
             <div class="container">
-                <!-- Header Titles -->
-                <div class="header-title">
-                    <h1>Student Progress Report</h1>
-                    <h4>Academic Year - 2024</h4>
+            <!-- Header Titles -->
+            <div class="header-title-container">
+                <!-- Institution Name (centered) -->
+                <input type="text" class="header-title-input" id="headerTitle" placeholder="Institution Name">
+                
+                <!-- Logo and Academic Year Row -->
+                <div class="logo-year-container">
+                    <!-- Left Logo -->
+                    <div class="header-logo left-logo">
+                        <img src="./media/bd-govt-bangla.png" alt="Left Logo">
+                    </div>
+                    
+                    <!-- Academic Year (centered) -->
+                    <h4>Academic Progress Report - 2024</h4>
+                    
+                    <!-- Right Logo -->
+                    <div class="header-logo right-logo">
+                        <img src="./media/bd-edu-board.png" alt="Right Logo">
+                    </div>
                 </div>
+            </div>
                 <!-- Header Fields -->
                 <div class="header-row">
                     <div class="header-item left-item">
@@ -32,7 +48,7 @@
                 </div>
 
                 <div class="header-row">
-                    <div class="header-item left-item">
+                    <div class="header-item three-col">
                         <label>Class: </label>
                         <div class="select-input-group">
                             <select id="classSelector" onchange="updateTable()">
@@ -50,20 +66,33 @@
                             </select>
                         </div>
                     </div>
-                    <div class="header-item right-item">
+                    <div class="header-item three-col">
                         <label>Division: </label>
                         <div class="select-input-group">
                             <select id="feedbackSelect">
                                 <option value="">Calculating...</option>
-                                <option value="Best">Best</option>
-                                <option value="Better">Better</option>
-                                <option value="Good">Good</option>
+                                <option value="Excellent">ممتاز</option>
+                                <option value="Very Good">جيد جدأ</option>
+                                <option value="Good">جيد</option>
+                                <option value="Average">متوسط</option>
+                                <option value="Acceptable">مقبول</option>
+                                <option value="Weak">ضعيف</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="header-item three-col">
+                        <label>Section: </label>
+                        <div class="select-input-group">
+                            <select id="sectionSelect">
+                                <option value=""></option>
+                                <option value="Primary">ابتدائي</option>
+                                <option value="Secondary">اعدادي</option>
                             </select>
                         </div>
                     </div>
                 </div>
 
-                <div class="header-row">
+                <!-- <div class="header-row">
                     <div class="header-item left-item">
                         <label>Section: </label>
                         <div class="select-input-group">
@@ -80,7 +109,7 @@
                             <input type="text" placeholder="Enter institution name">
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- Grade Table -->
                 <table id="gradeTable" class="grade-table">
@@ -111,21 +140,73 @@
                         GPA: <span id="gpa">0.00</span>
                     </div>
                 </div>
-
-                <div class="signature-container">
-                    <label class="signature-upload" id="uploadLabel">
-                        Upload Signature
-                        <input type="file" 
-                            id="signatureInput" 
-                            accept="image/*" 
-                            style="display: none;" 
-                            onchange="handleSignatureUpload(event)">
-                    </label>
-                    <div id="signaturePreview"></div>
-                    <div class="signature-line"></div>
-                    <div class="signature-label">Authorized Signature</div>
+                    
+                <div class="bottom-container">
+                    <div class="signature-container">
+                        <label class="signature-upload" id="uploadLabel">
+                            Upload Signature
+                            <input type="file" 
+                                id="signatureInput" 
+                                accept="image/*" 
+                                style="display: none;" 
+                                onchange="handleSignatureUpload(event)">
+                        </label>
+                        <div id="signaturePreview"></div>
+                        <div class="signature-line"></div>
+                        <div class="signature-label">Authorized Signature</div>
+                    </div>
+ 
+                    <div class="grade-chart-container">
+                        <div class="grade-chart-wrapper">
+                            <table class="grade-chart">
+                                <thead>
+                                    <tr>
+                                        <th>Marks</th>
+                                        <th>Grade</th>
+                                        <th>Point</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>80-100</td>
+                                        <td>A+</td>
+                                        <td>5.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>70-79</td>
+                                        <td>A</td>
+                                        <td>4.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>60-69</td>
+                                        <td>A-</td>
+                                        <td>3.50</td>
+                                    </tr>
+                                    <tr>
+                                        <td>50-59</td>
+                                        <td>B</td>
+                                        <td>3.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>40-49</td>
+                                        <td>C</td>
+                                        <td>2.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>33-39</td>
+                                        <td>D</td>
+                                        <td>1.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>0-32</td>
+                                        <td>F</td>
+                                        <td>0.00</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
             <!-- Download and Refresh Button -->
             <div class="action-buttons">
@@ -176,12 +257,12 @@
                 const classNumber = parseInt(document.getElementById('classSelector').value);
                 const subjectGroup = getSubjectGroup(classNumber);
                 const tableBody = document.getElementById('tableBody');
-                const rowCount = classNumber <= 5 ? 6 : 12;
+                const rowCount = classNumber <= 6 ? 7 : 12;
                 
                 // Update section based on class
                 const sectionSelect = document.getElementById('sectionSelect');
                 if (!isNaN(classNumber)) {
-                    sectionSelect.value = classNumber <= 5 ? 'Primary' : 'Secondary';
+                    sectionSelect.value = classNumber <= 6 ? 'Primary' : 'Secondary';
                 } else {
                     sectionSelect.value = '';
                 }
@@ -212,12 +293,18 @@
             function updateFeedback(gpa) {
                 const feedbackSelect = document.getElementById('feedbackSelect');
                 
-                if (gpa >= 3.75) {
-                    feedbackSelect.value = 'Best';
-                } else if (gpa >= 3.0) {
-                    feedbackSelect.value = 'Better';
-                } else if (gpa > 0) {
+                if (gpa >= 5.0) {
+                    feedbackSelect.value = 'Excellent';
+                } else if (gpa >= 4.0) {
+                    feedbackSelect.value = 'Very Good';
+                } else if (gpa >= 3.5) {
                     feedbackSelect.value = 'Good';
+                } else if (gpa >= 3.0) {
+                    feedbackSelect.value = 'Average';
+                } else if (gpa >= 2.0) {
+                    feedbackSelect.value = 'Acceptable';
+                } else if (gpa >= 1.0) {
+                    feedbackSelect.value = 'Weak';
                 } else {
                     feedbackSelect.value = '';
                 }
@@ -231,10 +318,7 @@
                 if (score >= 80) { grade = 'A+ (5.00)'; points = 5.0; }
                 else if (score >= 70) { grade = 'A (4.00)'; points = 4.0; }
                 else if (score >= 60) { grade = 'A- (3.50)'; points = 3.5; }
-                // else if (score >= 65) { grade = 'B+ (3.25)'; points = 3.25; }
                 else if (score >= 50) { grade = 'B (3.00)'; points = 3.0; }
-                // else if (score >= 55) { grade = 'B- (2.75)'; points = 2.75; }
-                // else if (score >= 50) { grade = 'C+ (2.50)'; points = 2.5; }
                 else if (score >= 40) { grade = 'C (2.00)'; points = 2.0; }
                 else if (score >= 33) { grade = 'D (1.00)'; points = 1.0; }
                 else { grade = 'F (0.00)'; points = 0; }
@@ -337,16 +421,18 @@
                         backgroundColor: null
                     });
 
-                    // Get name and code values
-                    const code = document.querySelector('input[type="text"]').value.trim() || 'progress';
-                    const name = document.querySelectorAll('input[type="text"]')[1].value.trim() || 'report';
-
-                    // Format components
-                    const formattedCode = code.replace(/[\/_]/g, '-');
-                    const formattedName = name.replace(/\s+/g, '_');
-
-                    // Create filename
-                    const filename = `${formattedCode}-${formattedName}-SPR-24.jpeg`.replace(/(--+|__+)/g, '-');
+                    // Get the student code
+                    const codeInput = document.querySelector('.header-item.left-item input[type="text"]');
+                    const rawCode = codeInput.value.trim();
+                    // Extract just the last part (8970)
+                    const studentId = rawCode.split('/').pop() || 'progress'; 
+                    
+                    // Get student name
+                    const nameInput = document.querySelector('.header-item.right-item input[type="text"]');
+                    const studentName = (nameInput.value.trim() || 'report').replace(/\s+/g, '_');
+                    
+                    // Create filename in this format: "8970-Seaum_Siddiqui-PR-24.jpeg"
+                    const filename = `${studentId}-${studentName}-PR-24.jpeg`;
 
                     // Convert to JPEG
                     const link = document.createElement('a');
@@ -362,12 +448,19 @@
                     addRowBtn.classList.remove('hide-for-capture');
                 }
             }
+            
             function refreshForm() {
                 // Clear all input fields
-                document.querySelectorAll('input[type="text"], input[type="number"]').forEach(input => {
-                    input.value = '';
-                });
+                // document.querySelectorAll('input[type="text"], input[type="number"]').forEach(input => {
+                //     input.value = '';
+                // });
 
+                document.querySelectorAll('input[type="text"]:not(#headerTitle, #signatureField), input[type="number"]')
+                    .forEach(input => {
+                        if (input.id !== 'headerTitle' && input.id !== 'signatureField') {
+                            input.value = '';
+                        }
+                    });
                 // Reset all dropdowns
                 document.getElementById('classSelector').value = '';
                 document.getElementById('feedbackSelect').value = '';
@@ -383,9 +476,6 @@
 
                 // Reset feedback message
                 document.getElementById('feedbackSelect').selectedIndex = 0;
-
-                // Keep signature by not clearing it
-                // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
                 
                 // Load table on initial state
                 updateTable();

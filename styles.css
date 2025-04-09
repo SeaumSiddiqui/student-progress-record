@@ -47,26 +47,76 @@ body {
     overflow-y: auto;
 }
 
-/* Header Title Styling */
-.header-title {
+/* Header Container */
+.header-title-container {
     text-align: center;
-    margin-top: 0.5rem;
     padding-bottom: 1rem;
-    /* border-bottom: 1px solid #a5215b; */
+    position: relative;
 }
 
-.header-title h1 {
+/* Logo and Year Container */
+.logo-year-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Academic Year Text */
+.logo-year-container h4 {
     margin: 0;
-    font-size: 2rem;
-    color: #2c3e50;
-    font-weight: 600;
-}
-
-.header-title h4 {
-    margin: 0.5rem 0 0;
     font-size: 1.3rem;
     color: #555c5c;
     font-weight: 400;
+    flex-grow: 1;
+    text-align: center;
+}
+
+/* Logo Styles */
+.header-logo {
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-logo img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+
+/* Institution Name Input */
+.header-title-input {
+    width: 65%;
+    max-width: 550px;
+    border: none !important;
+    background: transparent !important; /* Force transparent background */
+    font-size: 1.8rem !important; 
+    font-weight: 600;
+    text-align: center;
+    outline: none;
+    color: #2c3e50;
+    display: block;
+    margin: 0 auto -1.5rem auto;
+    line-height: 1.2;
+    font-family: inherit;
+    /* Add these to remove all browser-default styling */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+}
+
+/* Remove background on autofill */
+.header-title-input:-webkit-autofill,
+.header-title-input:-webkit-autofill:hover, 
+.header-title-input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #2c3e50;
+    -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+    transition: background-color 5000s ease-in-out 0s;
 }
 
 /* Header Fields Section */
@@ -78,14 +128,19 @@ body {
 
 /* Left column (30% width) */
 .header-item.left-item {
-    flex: 0 0 30%; /* Don't grow, don't shrink, 30% width */
-    max-width: 30%;
+    flex: 0 0 31.2%; /* Don't grow, don't shrink, 31.2% width */
+    max-width: 31.2%;
 }
 
 /* Right column (70% width) */
 .header-item.right-item {
     flex: 0 0 calc(70% - 1.5rem); /* Account for the gap */
     max-width: calc(70% - 1.5rem);
+}
+
+.header-item.three-col {
+    flex: 1; /* Each takes equal space */
+    min-width: 0; /* To prevent overflow */
 }
 
 .header-item {
@@ -123,7 +178,6 @@ input[type="number"] {
     font-size: 0.9rem;
     outline: none;
     transition: border-color 0.2s ease-in-out;
-
     line-height: 1.5;
 }
 
@@ -271,12 +325,63 @@ select {
     /* margin: 0.5rem 0; */
 }
 
-/* Signature Section */
+/* Bottom Container (signature + grade chart) */
+.bottom-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background: transparent;
+}
+
+/* Grade Chart Container - Reduced Size */
+.grade-chart-container {
+    width: 300px; /* Reduced from 300px */
+    margin-left: 1rem; /* Reduced from 2rem */
+    background: transparent;
+    font-size: 0.7rem; /* Added to scale all text */
+}
+
+.grade-chart-wrapper {
+    font-family: Arial, sans-serif;
+    width: 100%;
+    background: transparent;
+}
+
+.grade-chart {
+    width: 100%;
+    border-collapse: collapse;
+    background: transparent;
+}
+
+.grade-chart th,
+.grade-chart td {
+    padding: 3px; /* Reduced from 6px */
+    text-align: center;
+    border: none;
+    line-height: 1.2; /* Added for better readability */
+}
+
+.grade-chart th {
+    color: #a5215b;
+    font-weight: 600;
+    border-bottom: 1px solid #a5215b;
+    padding: 4px; /* Reduced from 8px */
+}
+
+.grade-chart tr {
+    border-bottom: 1px solid #eee;
+}
+
+.grade-chart tr:last-child {
+    border-bottom: none;
+}
+
+/* Signature Container (updated) */
 .signature-container {
-    width: 265px;
-    margin: auto 0 3rem 5rem;
-    padding-top: 2rem;
+    width: 250px;
+    margin-top: auto;
     position: relative;
+    margin-left: 3rem;
 }
 
 .signature-upload {
@@ -297,9 +402,9 @@ select {
 }
 
 #signaturePreview {
-    width: 180px;
-    height: 60px; /* Reduced height */
-    margin: 0 auto 20px; /* Added bottom margin */
+    width: 250px;
+    height: 100px;
+    margin: 0 auto 20px;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center bottom;
