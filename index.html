@@ -12,17 +12,16 @@
             <div class="container">
             <!-- Header Titles -->
             <div class="header-title-container">
-                <!-- Institution Name (centered) -->
+                <!-- Institution Name -->
                 <input type="text" class="header-title-input" id="headerTitle" placeholder="Institution Name">
                 
-                <!-- Logo and Academic Year Row -->
                 <div class="logo-year-container">
                     <!-- Left Logo -->
                     <div class="header-logo left-logo">
                         <img src="./media/bd-govt-bangla.png" alt="Left Logo">
                     </div>
                     
-                    <!-- Academic Year (centered) -->
+                    <!-- Academic Year -->
                     <h4>Academic Progress Report - 2024</h4>
                     
                     <!-- Right Logo -->
@@ -31,182 +30,182 @@
                     </div>
                 </div>
             </div>
-                <!-- Header Fields -->
-                <div class="header-row">
-                    <div class="header-item left-item">
-                        <label>Code: </label>
-                        <div class="input-group">
-                            <input type="text" placeholder="Enter code">
-                        </div>
-                    </div>
-                    <div class="header-item right-item">
-                        <label>Name: </label>
-                        <div class="input-group">
-                            <input type="text" placeholder="Enter name">
-                        </div>
+            <!-- Header Fields -->
+            <div class="header-row">
+                <div class="header-item left-item">
+                    <label>Code: </label>
+                    <div class="input-group">
+                        <input type="text" placeholder="Enter code">
                     </div>
                 </div>
-
-                <div class="header-row">
-                    <div class="header-item three-col">
-                        <label>Class: </label>
-                        <div class="select-input-group">
-                            <select id="classSelector" onchange="updateTable()">
-                                <option value=""></option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="header-item three-col">
-                        <label>Division: </label>
-                        <div class="select-input-group">
-                            <select id="feedbackSelect">
-                                <option value="">Calculating...</option>
-                                <option value="Excellent">ممتاز</option>
-                                <option value="Very Good">جيد جدأ</option>
-                                <option value="Good">جيد</option>
-                                <option value="Average">متوسط</option>
-                                <option value="Acceptable">مقبول</option>
-                                <option value="Weak">ضعيف</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="header-item three-col">
-                        <label>Section: </label>
-                        <div class="select-input-group">
-                            <select id="sectionSelect">
-                                <option value=""></option>
-                                <option value="Primary">ابتدائي</option>
-                                <option value="Secondary">اعدادي</option>
-                            </select>
-                        </div>
+                <div class="header-item right-item">
+                    <label>Name: </label>
+                    <div class="input-group">
+                        <input type="text" placeholder="Enter name">
                     </div>
                 </div>
+            </div>
 
-                <!-- <div class="header-row">
-                    <div class="header-item left-item">
-                        <label>Section: </label>
-                        <div class="select-input-group">
-                            <select id="sectionSelect">
-                                <option value=""></option>
-                                <option value="Primary">Primary</option>
-                                <option value="Secondary">Secondary</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="header-item right-item">
-                        <label>Institution: </label>
-                        <div class="input-group">
-                            <input type="text" placeholder="Enter institution name">
-                        </div>
-                    </div>
-                </div> -->
-
-                <!-- Grade Table -->
-                <table id="gradeTable" class="grade-table">
-                    <thead>
-                        <tr>
-                            <th>S/N</th>
-                            <th>Subject</th>
-                            <th>Obtained Number</th>
-                            <th>Grade</th>
-                            <th>Remarks</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody">
-                        <!-- Rows will be generated dynamically -->
-                    </tbody>
-                </table>
-
-                <div class="action-row">
-                    <div class="button-group">
-                        <button class="btn btn-primary" onclick="addRow()">Add Row</button>
-                    </div>
-                    
-                    <div class="total-display">
-                        Total Obtained Number: <span id="totalObtained">0</span>
-                    </div>
-    
-                    <div class="gpa-display">
-                        GPA: <span id="gpa">0.00</span>
+            <div class="header-row">
+                <div class="header-item three-col">
+                    <label>Class: </label>
+                    <div class="select-input-group">
+                        <select id="classSelector" onchange="updateTable()">
+                            <option value=""></option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
                     </div>
                 </div>
-                    
-                <div class="bottom-container">
-                    <div class="signature-container">
-                        <label class="signature-upload" id="uploadLabel">
-                            Upload Signature
-                            <input type="file" 
-                                id="signatureInput" 
-                                accept="image/*" 
-                                style="display: none;" 
-                                onchange="handleSignatureUpload(event)">
-                        </label>
-                        <div id="signaturePreview"></div>
-                        <div class="signature-line"></div>
-                        <div class="signature-label">Authorized Signature</div>
-                    </div>
- 
-                    <div class="grade-chart-container">
-                        <div class="grade-chart-wrapper">
-                            <table class="grade-chart">
-                                <thead>
-                                    <tr>
-                                        <th>Marks</th>
-                                        <th>Grade</th>
-                                        <th>Point</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>80-100</td>
-                                        <td>A+</td>
-                                        <td>5.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>70-79</td>
-                                        <td>A</td>
-                                        <td>4.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>60-69</td>
-                                        <td>A-</td>
-                                        <td>3.50</td>
-                                    </tr>
-                                    <tr>
-                                        <td>50-59</td>
-                                        <td>B</td>
-                                        <td>3.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>40-49</td>
-                                        <td>C</td>
-                                        <td>2.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>33-39</td>
-                                        <td>D</td>
-                                        <td>1.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>0-32</td>
-                                        <td>F</td>
-                                        <td>0.00</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                <div class="header-item three-col">
+                    <label>Division: </label>
+                    <div class="select-input-group">
+                        <select id="feedbackSelect">
+                            <option value="">Calculating...</option>
+                            <option value="Excellent">ممتاز</option>
+                            <option value="Very Good">جيد جدأ</option>
+                            <option value="Good">جيد</option>
+                            <option value="Average">متوسط</option>
+                            <option value="Acceptable">مقبول</option>
+                            <option value="Weak">ضعيف</option>
+                        </select>
                     </div>
                 </div>
+                <div class="header-item three-col">
+                    <label>Section: </label>
+                    <div class="select-input-group">
+                        <select id="sectionSelect">
+                            <option value=""></option>
+                            <option value="Primary">ابتدائي</option>
+                            <option value="Secondary">اعدادي</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div class="header-row">
+                <div class="header-item left-item">
+                    <label>Section: </label>
+                    <div class="select-input-group">
+                        <select id="sectionSelect">
+                            <option value=""></option>
+                            <option value="Primary">Primary</option>
+                            <option value="Secondary">Secondary</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="header-item right-item">
+                    <label>Institution: </label>
+                    <div class="input-group">
+                        <input type="text" placeholder="Enter institution name">
+                    </div>
+                </div>
+            </div> -->
+
+            <!-- Grade Table -->
+            <table id="gradeTable" class="grade-table">
+                <thead>
+                    <tr>
+                        <th>S/N</th>
+                        <th>Subject</th>
+                        <th>Obtained Number</th>
+                        <th>Grade</th>
+                        <th>Remarks</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Rows will be generated dynamically -->
+                </tbody>
+            </table>
+
+            <div class="action-row">
+                <div class="button-group">
+                    <button class="btn btn-primary" onclick="addRow()">Add Row</button>
+                </div>
+                
+                <div class="total-display">
+                    Total Obtained Number: <span id="totalObtained">0</span>
+                </div>
+
+                <div class="gpa-display">
+                    GPA: <span id="gpa">0.00</span>
+                </div>
+            </div>
+                
+            <div class="bottom-container">
+                <div class="signature-container">
+                    <label class="signature-upload" id="uploadLabel">
+                        Upload Signature
+                        <input type="file" 
+                            id="signatureInput" 
+                            accept="image/*" 
+                            style="display: none;" 
+                            onchange="handleSignatureUpload(event)">
+                    </label>
+                    <div id="signaturePreview"></div>
+                    <div class="signature-line"></div>
+                    <div class="signature-label">Authorized Signature</div>
+                </div>
+
+                <div class="grade-chart-container">
+                    <div class="grade-chart-wrapper">
+                        <table class="grade-chart">
+                            <thead>
+                                <tr>
+                                    <th>Marks</th>
+                                    <th>Grade</th>
+                                    <th>Point</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>80-100</td>
+                                    <td>A+</td>
+                                    <td>5.00</td>
+                                </tr>
+                                <tr>
+                                    <td>70-79</td>
+                                    <td>A</td>
+                                    <td>4.00</td>
+                                </tr>
+                                <tr>
+                                    <td>60-69</td>
+                                    <td>A-</td>
+                                    <td>3.50</td>
+                                </tr>
+                                <tr>
+                                    <td>50-59</td>
+                                    <td>B</td>
+                                    <td>3.00</td>
+                                </tr>
+                                <tr>
+                                    <td>40-49</td>
+                                    <td>C</td>
+                                    <td>2.00</td>
+                                </tr>
+                                <tr>
+                                    <td>33-39</td>
+                                    <td>D</td>
+                                    <td>1.00</td>
+                                </tr>
+                                <tr>
+                                    <td>0-32</td>
+                                    <td>F</td>
+                                    <td>0.00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
             <!-- Download and Refresh Button -->
             <div class="action-buttons">
@@ -216,8 +215,77 @@
         </div>
 
         <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+        <!-- Student database -->
+        <script src="studentData.js"></script>
 
         <script>
+            // Fetch student data by code
+            // Modified validation code
+            document.addEventListener('DOMContentLoaded', function() {
+                const codeInput = document.querySelector('.header-item.left-item input');
+                const nameInput = document.querySelector('.header-item.right-item input');
+                const codeContainer = codeInput.closest('.input-group');
+                
+                // Create error message element
+                const errorElement = document.createElement('div');
+                errorElement.className = 'error-message';
+                errorElement.textContent = 'Invalid student code';
+                codeContainer.appendChild(errorElement);
+
+                codeInput.addEventListener('blur', function() {
+                    if(this.value.trim() && !nameInput.value) {
+                    // Show error styling
+                    codeInput.classList.add('input-error');
+                    errorElement.style.display = 'block';
+                    
+                    // Focus but allow movement
+                    setTimeout(() => {
+                        codeInput.focus();
+                    }, 100);
+                    } else {
+                    // Clear error state
+                    codeInput.classList.remove('input-error');
+                    errorElement.style.display = 'none';
+                    }
+                });
+
+                // Clear error when typing
+                codeInput.addEventListener('input', function() {
+                    const code = this.value.trim();
+                    if(studentData[code]) {
+                    nameInput.value = studentData[code];
+                    codeInput.classList.remove('input-error');
+                    errorElement.style.display = 'none';
+                    } else {
+                    nameInput.value = '';
+                    }
+                });
+            });
+
+
+
+            // document.addEventListener('DOMContentLoaded', function() {
+            //     const codeInput = document.querySelector('.header-item.left-item input');
+            //     const nameInput = document.querySelector('.header-item.right-item input');
+            //     const debounceTime = 300; // milliseconds
+            //     let timeout;
+                
+            //     codeInput.addEventListener('input', function() {
+            //         clearTimeout(timeout);
+            //         timeout = setTimeout(() => {
+            //         const code = this.value.trim();
+            //         nameInput.value = studentData[code] || '';
+            //         }, debounceTime);
+            //     });
+
+            //     codeInput.addEventListener('blur', function() {
+            //         if(this.value && !nameInput.value) {
+            //             alert('Invalid student code');
+            //             this.focus();
+            //         }
+            //     });
+            // });
+
             const subjects = {
                 '1-5': ['English', 'Bangla', 'Mathematics', 'Bangladesh And Global Studies', 'Science', 'Islam and Moral Studies'],
                 '6-7': ['English', 'Bangla', 'Mathematics', 'Bangladesh And Global Studies', 'Science', 'Islam and Moral Studies', 'Work and Life Oriented Education', 'Information And Communication Technology', 'Physical Education and Health', 'Arts and Crafts', 'Home Science', 'Agriculture Studies']
