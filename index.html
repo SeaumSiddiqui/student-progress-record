@@ -13,7 +13,7 @@
             <!-- Header Titles -->
             <div class="header-title-container">
                 <!-- Institution Name -->
-                <input type="text" class="header-title-input" id="headerTitle" placeholder="Institution Name">
+                <input type="text" class="header-title-input" id="headerTitle" placeholder="Institution">
                 
                 <div class="logo-year-container">
                     <!-- Left Logo -->
@@ -31,23 +31,29 @@
                 </div>
             </div>
             <!-- Header Fields -->
-            <div class="header-row">
-                <div class="header-item left-item">
+            <div class="header-row three-col-row">
+                <div class="header-item three-col" style="max-width: 20%">
                     <label>Code: </label>
                     <div class="input-group">
                         <input type="text" placeholder="Enter code">
                     </div>
                 </div>
-                <div class="header-item right-item">
+                <div class="header-item three-col">
                     <label>Name: </label>
                     <div class="input-group">
                         <input type="text" placeholder="Enter name">
                     </div>
                 </div>
+                <div class="header-item three-col" style="max-width: 20%">
+                    <label>Roll: </label>
+                    <div class="input-group">
+                        <input type="text" placeholder="Enter roll">
+                    </div>
+                </div>
             </div>
 
             <div class="header-row">
-                <div class="header-item three-col">
+                <div class="header-item three-col" style="max-width: 20%">
                     <label>Class: </label>
                     <div class="select-input-group">
                         <select id="classSelector" onchange="updateTable()">
@@ -79,7 +85,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="header-item three-col">
+                <div class="header-item three-col" style="max-width: 20%">
                     <label>Section: </label>
                     <div class="select-input-group">
                         <select id="sectionSelect">
@@ -90,25 +96,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- <div class="header-row">
-                <div class="header-item left-item">
-                    <label>Section: </label>
-                    <div class="select-input-group">
-                        <select id="sectionSelect">
-                            <option value=""></option>
-                            <option value="Primary">Primary</option>
-                            <option value="Secondary">Secondary</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="header-item right-item">
-                    <label>Institution: </label>
-                    <div class="input-group">
-                        <input type="text" placeholder="Enter institution name">
-                    </div>
-                </div>
-            </div> -->
 
             <!-- Grade Table -->
             <table id="gradeTable" class="grade-table">
@@ -222,8 +209,8 @@
             // Fetch student data by code
             // Modified validation code
             document.addEventListener('DOMContentLoaded', function() {
-                const codeInput = document.querySelector('.header-item.left-item input');
-                const nameInput = document.querySelector('.header-item.right-item input');
+                const codeInput = document.querySelector('.three-col-row .header-item:nth-child(1) input');
+                const nameInput = document.querySelector('.three-col-row .header-item:nth-child(2) input');
                 const codeContainer = codeInput.closest('.input-group');
                 
                 // Create error message element
@@ -262,33 +249,9 @@
                 });
             });
 
-
-
-            // document.addEventListener('DOMContentLoaded', function() {
-            //     const codeInput = document.querySelector('.header-item.left-item input');
-            //     const nameInput = document.querySelector('.header-item.right-item input');
-            //     const debounceTime = 300; // milliseconds
-            //     let timeout;
-                
-            //     codeInput.addEventListener('input', function() {
-            //         clearTimeout(timeout);
-            //         timeout = setTimeout(() => {
-            //         const code = this.value.trim();
-            //         nameInput.value = studentData[code] || '';
-            //         }, debounceTime);
-            //     });
-
-            //     codeInput.addEventListener('blur', function() {
-            //         if(this.value && !nameInput.value) {
-            //             alert('Invalid student code');
-            //             this.focus();
-            //         }
-            //     });
-            // });
-
             const subjects = {
                 '1-5': ['English', 'Bangla', 'Mathematics', 'Bangladesh And Global Studies', 'Science', 'Islam and Moral Studies'],
-                '6-7': ['English', 'Bangla', 'Mathematics', 'Bangladesh And Global Studies', 'Science', 'Islam and Moral Studies', 'Work and Life Oriented Education', 'Information And Communication Technology', 'Physical Education and Health', 'Arts and Crafts', 'Home Science', 'Agriculture Studies']
+                '6-7': ['English 1st Paper', 'English 2nd Paper', 'Bangla 1st Paper', 'Bangla 2nd Paper', 'Mathematics', 'Bangladesh And Global Studies', 'Science', 'Islam and Moral Studies', 'Work and Life Oriented Education', 'Information And Communication Technology', 'Physical Education and Health', 'Arts and Crafts', 'Home Science', 'Agriculture Studies']
             };
 
             function getSubjectGroup(classNumber) {
@@ -325,7 +288,7 @@
                 const classNumber = parseInt(document.getElementById('classSelector').value);
                 const subjectGroup = getSubjectGroup(classNumber);
                 const tableBody = document.getElementById('tableBody');
-                const rowCount = classNumber <= 6 ? 7 : 12;
+                const rowCount = classNumber <= 6 ? 7 : 14; // added 1st and 2nd paper for class 6-7
                 
                 // Update section based on class
                 const sectionSelect = document.getElementById('sectionSelect');
@@ -490,13 +453,13 @@
                     });
 
                     // Get the student code
-                    const codeInput = document.querySelector('.header-item.left-item input[type="text"]');
+                    const codeInput = document.querySelector('.three-col-row .header-item:nth-child(1) input');
                     const rawCode = codeInput.value.trim();
                     // Extract just the last part (8970)
                     const studentId = rawCode.split('/').pop() || 'progress'; 
                     
                     // Get student name
-                    const nameInput = document.querySelector('.header-item.right-item input[type="text"]');
+                    const nameInput = document.querySelector('.three-col-row .header-item:nth-child(2) input');
                     const studentName = (nameInput.value.trim() || 'report').replace(/\s+/g, '_');
                     
                     // Create filename in this format: "8970-Seaum_Siddiqui-PR-24.jpeg"
@@ -518,11 +481,7 @@
             }
             
             function refreshForm() {
-                // Clear all input fields
-                // document.querySelectorAll('input[type="text"], input[type="number"]').forEach(input => {
-                //     input.value = '';
-                // });
-
+                // Clear all input fields except header title and signature
                 document.querySelectorAll('input[type="text"]:not(#headerTitle, #signatureField), input[type="number"]')
                     .forEach(input => {
                         if (input.id !== 'headerTitle' && input.id !== 'signatureField') {

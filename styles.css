@@ -26,7 +26,7 @@ body {
     padding: 20px;
 
     background: rgb(230, 230, 230);
-    background-image: url('./media/background.png');
+    background-image: url('./media/repport-bg.jpg');
     crossOrigin: 'anonymous';
 
     background-size: cover; /* Ensures the image fully covers the background */
@@ -61,7 +61,8 @@ body {
 /* Header Container */
 .header-title-container {
     text-align: center;
-    padding-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    margin-top: -1rem;
     position: relative;
 }
 
@@ -84,8 +85,8 @@ body {
 
 /* Logo Styles */
 .header-logo {
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -103,15 +104,14 @@ body {
     width: 65%;
     max-width: 550px;
     border: none !important;
-    background: transparent !important; /* Force transparent background */
     font-size: 1.8rem !important; 
     font-weight: 600;
     text-align: center;
+    margin: 0 auto -1.5rem auto;
     outline: none;
     color: #2c3e50;
     display: block;
-    margin: 0 auto -1.5rem auto;
-    line-height: 1.2;
+    line-height: 1.5;
     font-family: inherit;
     /* Add these to remove all browser-default styling */
     -webkit-appearance: none;
@@ -133,8 +133,8 @@ body {
 /* Header Fields Section */
 .header-row {
     display: flex;
-    gap: 1.5rem;
-    margin-bottom: 1.5rem;
+    gap: 1rem;
+    margin-bottom: 0rem;
 }
 
 /* Left column (30% width) */
@@ -167,7 +167,7 @@ body {
     font-weight: 600;
     color: #34495e;
     transform: translateY(-1px); 
-    padding-bottom: 2px;
+    padding-bottom: 1px;
 }
 
 /* Input containers expand to fill remaining space */
@@ -182,11 +182,11 @@ select,
 input[type="text"], 
 input[type="number"] {
     width: 100%;
-    padding: 0.4rem 0;
+    padding: 0.2rem 0;
     border: none;
-    border-bottom: 2px solid #ced4da;
+    border-bottom: 2px solid #f0f2f4;
     background: transparent;
-    font-size: 0.9rem;
+    font-size: 1rem;
     outline: none;
     transition: border-color 0.2s ease-in-out;
     line-height: 1.5;
@@ -195,7 +195,7 @@ input[type="number"] {
 select:focus, 
 input[type="text"]:focus, 
 input[type="number"]:focus {
-    border-bottom: 2px solid #a5215b;
+    border-bottom: 2px solid #1b662b;
 }
 
 /* Adjust select padding for dropdown arrow */
@@ -215,7 +215,7 @@ select {
     margin-top: 0.6rem;
     width: 100%;
     border-collapse: collapse;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    /* box-shadow: 0 1px 3px rgba(0,0,0,0.05); */
     border: 1px solid #dee2e6;
 }
 
@@ -237,7 +237,7 @@ select {
 
 /* .grade-table th:nth-child(2), */
 .grade-table td:nth-child(2) { /* Subject column */
-    width: 45%;
+    width: 46%;
     text-align: left;
 }
 
@@ -248,17 +248,17 @@ select {
 
 .grade-table th:nth-child(4),
 .grade-table td:nth-child(4) { /* Grade */
-    width: 12%;
+    width: 11%;
 }
 
 .grade-table th:nth-child(5),
 .grade-table td:nth-child(5) { /* Remarks */
-    width: 12%;
+    width: 11%;
 }
 
 /* Header styling */
 .grade-table th {
-    background-color: #a5215b;
+    background-color: #1b662b;
     color: white;
     font-weight: 600;
     padding: 0.6rem; 
@@ -295,7 +295,7 @@ select {
 
 /* Hover effects */
 .grade-table tr:hover {
-    background-color: #f8f9fa;
+    background-color: #f4f0f0;
 }
 
 .grade-table tr:hover .delete-btn {
@@ -304,7 +304,7 @@ select {
 
 /* Zebra striping */
 .grade-table tr:nth-child(even) {
-    background-color: #fdfdfe;
+    background-color: #1b662b1c;
 }
 
 /* Add row button and GPA container */
@@ -314,7 +314,7 @@ select {
     align-items: center;
     margin: 0.5rem 0;
     padding: 0.5rem;
-    background-color: #a5215b;
+    background-color: #1b662b;
     border: 1px solid #dee2e6;
 }
 
@@ -373,9 +373,9 @@ select {
 }
 
 .grade-chart th {
-    color: #a5215b;
+    color: #1b662b;
     font-weight: 600;
-    border-bottom: 1px solid #a5215b;
+    border-bottom: 1px solid #1b662b;
     padding: 4px; /* Reduced from 8px */
 }
 
@@ -398,18 +398,18 @@ select {
 .signature-upload {
     display: block;
     margin-bottom: 0.5rem;
-    color: #a5215b;
+    color: #1b662b;
     cursor: pointer;
     transition: color 0.3s ease;
     padding: 8px 12px;
-    border: 1px solid #a5215b;
+    border: 1px solid #1b662b;
     border-radius: 4px;
     text-align: center;
 }
 
 .signature-upload:hover {
     color: #fff;
-    background-color: #74113f;
+    background-color: #154f21;
 }
 
 #signaturePreview {
@@ -469,7 +469,7 @@ select {
 
 /* Download Button Specific */
 .download-btn {
-    background-color: #a5215b;
+    background-color: #1b662b;
 }
 
 /* Refresh Button Specific */
