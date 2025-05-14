@@ -26,7 +26,7 @@ body {
     padding: 20px;
 
     background: rgb(230, 230, 230);
-    background-image: url('./media/repport-bg.jpg');
+    background-image: url('./bg\ media/Result\ Card\ Background-10.png');
     crossOrigin: 'anonymous';
 
     background-size: cover; /* Ensures the image fully covers the background */
@@ -73,6 +73,63 @@ body {
     justify-content: space-between;
 }
 
+/* Header Title */
+.header-title-select {
+    font-size: 2rem; /* Match h1 size */
+    font-weight: bold;
+    text-align: center;
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    border: none;
+    background: transparent;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    color: inherit;
+    line-height: 1.2;
+}
+
+.header-title-select:hover {
+    color: #1b662b; /* Change color on hover for better UX */
+}
+
+/* Remove default dropdown arrow in most browsers */
+.header-title-select::-ms-expand {
+    display: none;
+}
+
+/* For Firefox */
+@-moz-document url-prefix() {
+    .header-title-select {
+        text-indent: 0.01px;
+        text-overflow: '';
+    }
+}
+
+/* Center the select text */
+.header-title-select option {
+    text-align: center;
+}
+
+/* Style for when the select is focused */
+.header-title-select:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+/* Remove autofill styling */
+.header-title-select:-webkit-autofill,
+.header-title-select:-webkit-autofill:hover, 
+.header-title-select:-webkit-autofill:focus {
+    -webkit-text-fill-color: inherit;
+    -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
 /* Academic Year Text */
 .logo-year-container h4 {
     margin: 0;
@@ -85,8 +142,9 @@ body {
 
 /* Logo Styles */
 .header-logo {
-    width: 60px;
-    height: 60px;
+    margin-top: -1.5rem;
+    width:80px;
+    height:80px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -98,55 +156,17 @@ body {
     object-fit: contain;
 }
 
-
-/* Institution Name Input */
-.header-title-input {
-    width: 65%;
-    max-width: 550px;
-    border: none !important;
-    font-size: 1.8rem !important; 
-    font-weight: 600;
-    text-align: center;
-    margin: 0 auto -1.5rem auto;
-    outline: none;
-    color: #2c3e50;
-    display: block;
-    line-height: 1.5;
-    font-family: inherit;
-    /* Add these to remove all browser-default styling */
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    box-shadow: none !important;
-    -webkit-box-shadow: none !important;
-}
-
-/* Remove background on autofill */
-.header-title-input:-webkit-autofill,
-.header-title-input:-webkit-autofill:hover, 
-.header-title-input:-webkit-autofill:focus {
-    -webkit-text-fill-color: #2c3e50;
-    -webkit-box-shadow: 0 0 0px 1000px transparent inset;
-    transition: background-color 5000s ease-in-out 0s;
+.header {
+    text-align: center; /* Center the heading */
+    page-break-inside: avoid;
+    margin-bottom: -2.5rem;
 }
 
 /* Header Fields Section */
 .header-row {
     display: flex;
     gap: 1rem;
-    margin-bottom: 0rem;
-}
-
-/* Left column (30% width) */
-.header-item.left-item {
-    flex: 0 0 31.2%; /* Don't grow, don't shrink, 31.2% width */
-    max-width: 31.2%;
-}
-
-/* Right column (70% width) */
-.header-item.right-item {
-    flex: 0 0 calc(70% - 1.5rem); /* Account for the gap */
-    max-width: calc(70% - 1.5rem);
+    margin-bottom: 1rem;
 }
 
 .header-item.three-col {
@@ -170,7 +190,7 @@ body {
     padding-bottom: 1px;
 }
 
-/* Input containers expand to fill remaining space */
+/* Input containers to fill remaining space */
 .input-group, 
 .select-input-group {
     flex-grow: 1;
@@ -182,14 +202,18 @@ select,
 input[type="text"], 
 input[type="number"] {
     width: 100%;
-    padding: 0.2rem 0;
+    padding: 0.2rem 0 0.05rem 0; /* To educed top/bottom padding */
+    margin: 0;
     border: none;
     border-bottom: 2px solid #f0f2f4;
     background: transparent;
     font-size: 1rem;
     outline: none;
     transition: border-color 0.2s ease-in-out;
-    line-height: 1.5;
+    line-height: 1.2;
+    box-sizing: border-box;
+    position: relative;
+    top: -1px;
 }
 
 select:focus, 
@@ -198,17 +222,20 @@ input[type="number"]:focus {
     border-bottom: 2px solid #1b662b;
 }
 
-/* Adjust select padding for dropdown arrow */
+/* Adjust select padding for dropdown arrow - reduced gap */
 select {
     padding-right: 1.5rem;
+    background-position: right 0.2rem center; /* Move arrow closer */
 }
 
-/* For select + input combinations */
+/* For select + input combinations - tighter grouping */
 .select-input-group {
     display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    align-items: flex-end;
+    gap: 0.3rem; /* Reduced gap */
+    padding-bottom: 1px;
 }
+
 
 /* Grade Table */
 .grade-table {
@@ -304,7 +331,7 @@ select {
 
 /* Zebra striping */
 .grade-table tr:nth-child(even) {
-    background-color: #1b662b1c;
+    background-color: #3962411c;
 }
 
 /* Add row button and GPA container */
@@ -415,7 +442,7 @@ select {
 #signaturePreview {
     width: 250px;
     height: 100px;
-    margin: 0 auto 20px;
+    margin: 0 auto 40px;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center bottom;
@@ -425,7 +452,7 @@ select {
 
 .signature-line {
     position: absolute;
-    bottom: 15px; /* Moved line lower */
+    bottom: 30px; /* Moved line lower */
     left: 0;
     right: 0;
     border-bottom: 1px solid #737577;
@@ -433,7 +460,7 @@ select {
 
 .signature-label {
     position: absolute;
-    bottom: -3px; 
+    margin-top: -1.8rem; /* Adjusted to move label up */
     left: 50%;
     transform: translateX(-50%);
 
@@ -479,7 +506,7 @@ select {
 
 /* Hover Effects */
 .download-btn:hover {
-    background-color: #74113f;
+    background-color: #154f21;
     transform: scale(1.05);
 }
 
